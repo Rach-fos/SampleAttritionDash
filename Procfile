@@ -1,1 +1,1 @@
-web: gunicorn attrition_dashboard:server
+gunicorn attrition_dashboard:server
