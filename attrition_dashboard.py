@@ -118,7 +118,7 @@ app.layout = dbc.Container([
                 multi=True,
                 className="text-dark"
             )
-        ], width=1),
+        ], width=2),
         
         #filter 4
         dbc.Col([
