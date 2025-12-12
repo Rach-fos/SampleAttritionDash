@@ -97,7 +97,7 @@ app.layout = dbc.Container([
                 
                 marks={int(y): str(int(y)) for y in YEARS[:]},
             )
-        ], width=4.5),
+        ], width=4),
         
         #filter 2
         dbc.Col([
@@ -118,7 +118,7 @@ app.layout = dbc.Container([
                 multi=True,
                 className="text-dark"
             )
-        ], width=1.5),
+        ], width=1),
         
         #filter 4
         dbc.Col([
