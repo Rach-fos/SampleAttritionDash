@@ -179,16 +179,15 @@ app.layout = dbc.Container([
                 html.Div(id="table-salary")
             ]))
         ], width=4),
-        dbc.Row([
         
-        # Engagement Survey scores
+        #Engagement Survey scores
         dbc.Col([
             dbc.Card(dbc.CardBody([
                 html.H5("Avg Engagement Survey Scores"),
                 dcc.Graph(id="engagement-score")
             ]))
         ], width=6),
-    ], className="mb-4"),], fluid=True)
+    ], className="mb-4"),
     
     #4th row
     dbc.Row([
