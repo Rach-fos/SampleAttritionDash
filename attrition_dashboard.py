@@ -94,14 +94,8 @@ app.layout = dbc.Container([
                 id="year-filter",
                 min=MIN_YEAR, max=MAX_YEAR, step=1,
                 value=[MIN_YEAR, MAX_YEAR],
-                marks={y: {
-                    "label": str(y),
-                    "style": {"color": "#FFFFFF", "fontSize": "14px"}
-                    }
-                for y in YEARS
-                },
-                tooltip={"placement": "bottom", "always_visible": False}
-                #marks={str(y): str(y) for y in YEARS[:]},
+                
+                marks={str(y): str(y) for y in YEARS[:]},
             )
         ], width=6),
         
