@@ -74,7 +74,7 @@ app.layout = html.Div(
                     style={"fontSize": "28px", "marginBottom": "4px"},
                 ),
                 html.Div(
-                    "Based on Sample Data",
+                    "Based on Sample Data by Dr. Carla Patalano and Dr. Rich Huebner",
                     style={"color": "#6b7280", "marginBottom": "24px"},
                 ),
 
