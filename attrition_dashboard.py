@@ -97,7 +97,7 @@ app.layout = dbc.Container([
                 
                 marks={int(y): str(int(y)) for y in YEARS[:]},
             )
-        ], width=6),
+        ], width=4.5),
         
         #filter 2
         dbc.Col([
@@ -108,7 +108,7 @@ app.layout = dbc.Container([
                 multi=True,
                 className="text-dark"
             )
-        ], width=4),
+        ], width=3),
         #filter 3
         dbc.Col([
             html.Label("Gender"),
@@ -118,7 +118,7 @@ app.layout = dbc.Container([
                 multi=True,
                 className="text-dark"
             )
-        ], width=2),
+        ], width=1.5),
         
         #filter 4
         dbc.Col([
@@ -132,7 +132,7 @@ app.layout = dbc.Container([
                 multi=True,
                 placeholder="All termination types",
                 className="text-dark"),
-            ],)
+            ],width=2)
         
         
     ], className="mb-5"),
