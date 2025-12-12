@@ -344,11 +344,11 @@ def update_dashboard(depts, genders, year_range, termination_filter):
     else:
         fig_reason = px.bar(title="No Data")
 
-    # transparent backgrounds
-    for fig in [fig_year, fig_gender, fig_dept, fig_reason]:
-        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+    # # transparent backgrounds
+    # for fig in [fig_year, fig_gender, fig_dept, fig_reason]:
+    #     fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
 
-    # TABLES
+    # row 4 tables
 
     #Salary Table
     avg_active = dff_active["Salary"].mean() if not dff_active.empty else 0
@@ -362,6 +362,36 @@ def update_dashboard(depts, genders, year_range, termination_filter):
 
     table_salary = dbc.Table.from_dataframe(salary_data, striped=True, bordered=True, hover=True, size="sm")
 
+    #engagement survey
+    avg_engage_active = dff_active["EngagementSurvey"].mean() if not dff_active.empty else 0
+    avg_engage_term = dff_term["EngagementSurvey"].mean() if not dff_term.empty else 0
+
+    engagement_data = pd.DataFrame({
+        "Status": ["Active", "Terminated"],
+        "Average Score": [avg_engage_active, avg_engage_term]
+    })
+    
+    if not engagement_data.empty:
+        fig_engagement = px.bar(
+            engagement_data, 
+            x="Status", 
+            y="Average Score",
+            title="Average Engagement Survey Score (1-5)",
+            template="plotly_dark",
+            color="Status",
+            color_discrete_map={"Active": "lightblue", "Terminated": "lightorange"} 
+        )
+        # Ensure y-axis range is appropriate for survey scores
+        fig_engagement.update_yaxes(range=[0, 5], title="Average Score")
+    else:
+        fig_engagement = px.bar(title="No Data")
+    
+    
+    # transparent backgrounds
+    for fig in [fig_year, fig_gender, fig_dept, fig_reason]:
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
+
+
     # Recent Terms Table
     if not dff_term.empty:
         recent_df = dff_term.sort_values('DateofTermination', ascending=False).head(10)
@@ -371,6 +401,7 @@ def update_dashboard(depts, genders, year_range, termination_filter):
     else:
         table_recent = html.Div('No terminations found matching criteria.', className='text-muted p-2')
 
+    
     return str(count_total), str(count_active), str(
         count_term), f"{rate}%", fig_year, fig_gender, fig_dept, fig_reason, table_salary, table_recent
 
