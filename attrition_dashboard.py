@@ -120,6 +120,20 @@ app.layout = dbc.Container([
             )
         ], width=2),
         
+        #filter 4
+        dbc.Col([
+            html.Label("Termination status"),
+            dcc.Dropdown(
+                id="termination-filter",
+                options=[{"label": "Terminated for Cause", "value": "Terminated for Cause"},
+                         {"label": "Voluntarily Terminated", "value": "Voluntarily Terminated"},
+                         ],
+
+                multi=True,
+                placeholder="All termination types",
+                className="text-dark"),
+            ],)
+        
         
     ], className="mb-5"),
 
@@ -195,9 +209,10 @@ app.layout = dbc.Container([
         Input("dept-filter", "value"),
         Input("gender-filter", "value"),
         Input("year-filter", "value"),
+        Input('termination-filter','value'),
     ]
 )
-def update_dashboard(depts, genders, year_range):
+def update_dashboard(depts, genders, year_range, termination_filter):
 
     # make a copy
     dff = df.copy()
@@ -212,19 +227,24 @@ def update_dashboard(depts, genders, year_range):
     dff_active = dff[dff["Termd"] == 0]
     dff_term = dff[dff["Termd"] == 1]
 
+    if termination_filter:
+        dff_term = dff_term[
+            dff_term["EmploymentStatus"].isin(termination_filter)
+    ]
+        
     if year_range:
         dff_term = dff_term[
             (dff_term["TerminationYear"] >= year_range[0]) &
             (dff_term["TerminationYear"] <= year_range[1])
             ]
 
-    ## --- first row metrics ---
+    ## TOP OVERALL METRICS
     count_term = len(dff_term)
     count_total = len(dff)
     count_active = count_total - count_term
     rate = round((count_term / count_total * 100), 1) if count_total > 0 else 0
 
-    ## --- All attrtion charts ---
+    ## ATTRITION CHARTS
     #Timeline (cumulative)
     total_headcount = len(dff)
     if not dff_term.empty and total_headcount > 0:
@@ -316,7 +336,7 @@ def update_dashboard(depts, genders, year_range):
     for fig in [fig_year, fig_gender, fig_dept, fig_reason]:
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
 
-    # --- Tables ---
+    # TABLES
 
     #Salary Table
     avg_active = dff_active["Salary"].mean() if not dff_active.empty else 0
