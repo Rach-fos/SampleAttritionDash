@@ -45,3 +45,4 @@ urllib3==2.6.1
 Werkzeug==3.1.4
 zipp==3.23.0
 gunicorn
+dash_bootstrap_components
