@@ -89,6 +89,16 @@ app.layout = dbc.Container([
     dbc.Row([
         #filter 1
         dbc.Col([
+            html.Label("Termination Year Range"),
+            dcc.RangeSlider(
+                id="year-filter",
+                min=MIN_YEAR, max=MAX_YEAR, step=1,
+                value=[MIN_YEAR, MAX_YEAR],
+                marks={str(y): str(y) for y in YEARS[::2]}  # Show every other year to save space
+            )
+        ], width=6),
+        #filter 2
+        dbc.Col([
             html.Label("Department"),
             dcc.Dropdown(
                 id="dept-filter",
@@ -97,7 +107,7 @@ app.layout = dbc.Container([
                 className="text-dark"
             )
         ], width=4),
-        #filter 2
+        #filter 3
         dbc.Col([
             html.Label("Gender"),
             dcc.Dropdown(
@@ -107,16 +117,8 @@ app.layout = dbc.Container([
                 className="text-dark"
             )
         ], width=2),
-        #filter 3
-        dbc.Col([
-            html.Label("Termination Year Range"),
-            dcc.RangeSlider(
-                id="year-filter",
-                min=MIN_YEAR, max=MAX_YEAR, step=1,
-                value=[MIN_YEAR, MAX_YEAR],
-                marks={str(y): str(y) for y in YEARS[::2]}  # Show every other year to save space
-            )
-        ], width=6),
+        
+        
     ], className="mb-5"),
 
 
