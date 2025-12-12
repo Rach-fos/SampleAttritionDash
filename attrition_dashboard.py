@@ -179,14 +179,26 @@ app.layout = dbc.Container([
                 html.Div(id="table-salary")
             ]))
         ], width=4),
+        dbc.Row([
+        
+        # Engagement Survey scores
         dbc.Col([
             dbc.Card(dbc.CardBody([
-                html.H5("Recent Terminations"),
-                html.Div(id="table-recent-terms")
+                html.H5("Avg Engagement Survey Scores"),
+                dcc.Graph(id="engagement-score")
             ]))
-        ], width=8),
-    ], className="mb-4"),
-], fluid=True)
+        ], width=6),
+    ], className="mb-4"),], fluid=True)
+    
+    #4th row
+    dbc.Row([
+        dbc.Col([
+            dbc.Card(dbc.CardBody([
+            html.H5("Recent Terminations"),
+            html.Div(id="table-recent-terms")
+        ]))
+    ], width=8),
+], className="mb-4"),
 
 
 
@@ -203,6 +215,7 @@ app.layout = dbc.Container([
         Output("chart-termination-reason", "figure"),
         Output("table-salary", "children"),
         Output("table-recent-terms", "children"),
+        Output('engagement-score','figure'),
     ],
 
     [
