@@ -95,7 +95,7 @@ app.layout = dbc.Container([
                 min=MIN_YEAR, max=MAX_YEAR, step=1,
                 value=[MIN_YEAR, MAX_YEAR],
                 
-                marks={str(y): str(y) for y in YEARS[:]},
+                marks={int(y): str(int(y)) for y in YEARS[:]},
             )
         ], width=6),
         
