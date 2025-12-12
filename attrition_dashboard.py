@@ -200,7 +200,7 @@ app.layout = dbc.Container([
     ], width=8),
 ], className="mb-4"),
 
-
+])
 
 # Callbacks
 @app.callback(
