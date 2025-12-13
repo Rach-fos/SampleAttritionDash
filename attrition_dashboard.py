@@ -178,7 +178,7 @@ app.layout = dbc.Container([
                 html.H5("Salary Comparison"),
                 html.Div(id="table-salary")
             ]))
-        ], width=4),
+        ], width=4,length=3),
         
         #Engagement Survey scores
         dbc.Col([
@@ -186,7 +186,7 @@ app.layout = dbc.Container([
                 html.H5("Avg Engagement Survey Scores"),
                 dcc.Graph(id="engagement-score")
             ]))
-        ], width=7),
+        ], width=7, length=3),
     ], className="mb-4"),
     
     #4th row
@@ -196,7 +196,7 @@ app.layout = dbc.Container([
             html.H5("Recent Terminations"),
             html.Div(id="table-recent-terms")
         ]))
-    ], width=8),
+    ], width=12),
 ], className="mb-4"),
 
 ])
