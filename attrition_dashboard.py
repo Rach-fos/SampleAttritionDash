@@ -365,7 +365,7 @@ def update_dashboard(depts, genders, year_range, termination_filter):
     #ENGAGEMENT SURVEY SCORES
     avg_engage_active = (dff_active.groupby('Department')['EngagementSurvey'].mean()
     .reset_index(name='ActiveEngagement'))
-    avg_engage_term= (dff_term.groupby('Department')["EngagementSurvey".mean()
+    avg_engage_term= (dff_term.groupby('Department')["EngagementSurvey"].mean()
     .reset_index(name='TermEngagement'))
 
  
