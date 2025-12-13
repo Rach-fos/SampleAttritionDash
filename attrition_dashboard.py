@@ -186,7 +186,7 @@ app.layout = dbc.Container([
                 html.H5("Avg Engagement Survey Scores"),
                 dcc.Graph(id="engagement-score")
             ]))
-        ], width=6),
+        ], width=7),
     ], className="mb-4"),
     
     #4th row
