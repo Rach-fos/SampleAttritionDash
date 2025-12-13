@@ -362,33 +362,40 @@ def update_dashboard(depts, genders, year_range, termination_filter):
 
     table_salary = dbc.Table.from_dataframe(salary_data, striped=True, bordered=True, hover=True, size="sm")
 
-    #engagement survey
-    avg_engage_active = dff_active["EngagementSurvey"].mean() if not dff_active.empty else 0
-    avg_engage_term = dff_term["EngagementSurvey"].mean() if not dff_term.empty else 0
+    #ENGAGEMENT SURVEY SCORES
+    avg_engage_active = (dff_active.groupby('Department')['EngagementSurvey'].mean()
+    .reset_index(name='ActiveEngagement'))
+    avg_engage_term= (dff_term.groupby('Department')["EngagementSurvey".mean()
+    .reset_index(name='TermEngagement'))
 
-    engagement_data = pd.DataFrame({
-        "Status": ["Active", "Terminated"],
-        "Average Score": [avg_engage_active, avg_engage_term]
-    })
+ 
     
-    if not engagement_data.empty:
-        fig_engagement = px.bar(
-            engagement_data, 
-            x="Status", 
-            y="Average Score",
-            title="Average Engagement Survey Score (1-5)",
-            template="plotly_dark",
-            color="Status",
-            color_discrete_map={"Active": "lightblue", "Terminated": "orange"} 
-        )
-        # Ensure y-axis range is appropriate for survey scores
-        fig_engagement.update_yaxes(range=[0, 5], title="Average Score")
-    else:
-        fig_engagement = px.bar(title="No Data")
+    engagement_data = pd.merge(avg_engage_active,avg_engage_term, on="Department",how="outer").fillna(0)
+
+    eng_long = engagement_data.melt(id_vars='Department',value_vars=['ActiveEngagement', 'TermEngagement'],
+                                    var_name='Status', value_name='AvgEngagement')
+
+    eng_long["Status"] = eng_long['Status'].replace({'ActiveEngagement': 'Active Employees',
+                                                     'TermEngagement': 'Terminated Employees'})
+
+    #build visual
     
+                                    
+    fig_engagement = px.bar(
+    eng_long,
+    x="Department", y="AvgEngagement", 
+    color="Status", barmode="group", 
+    template="plotly_dark", 
+    title="Average Engagement Survey Scores by Department", 
+    color_discrete_map={"Active Employees": "lightblue", "Terminated Employees": "orange"}
+)
+    fig_engagement.update_layout(
+        xaxis_title="Department",  yaxis_title="Avg Engagement Score", 
+        xaxis_tickangle=-25 
+)
     
     # transparent backgrounds
-    for fig in [fig_year, fig_gender, fig_dept, fig_reason]:
+    for fig in [fig_year, fig_gender, fig_dept, fig_reason,fig_engagement]:
         fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)")
 
 
