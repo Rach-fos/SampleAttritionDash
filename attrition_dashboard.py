@@ -403,7 +403,7 @@ def update_dashboard(depts, genders, year_range, termination_filter):
 
     
     return str(count_total), str(count_active), str(
-        count_term), f"{rate}%", fig_year, fig_gender, fig_dept, fig_reason, table_salary,fig_engagement, table_recent
+        count_term), f"{rate}%", fig_year, fig_gender, fig_dept, fig_reason, table_salary, table_recent, fig_engagement
 
 if __name__ == "__main__":
     app.run(debug=True)
