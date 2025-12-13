@@ -293,7 +293,7 @@ def update_dashboard(depts, genders, year_range, termination_filter):
         timeline_df['CumulativeTerminations'] = timeline_df.groupby('TerminationYear')['MonthlyTerminations'].cumsum()
         timeline_df['CumulativeRate'] = (timeline_df['CumulativeTerminations'] / total_headcount) * 100
 
-        #coloring
+        #structure
         timeline_df["TerminationYear"] = timeline_df["TerminationYear"].astype(str)
         ordered_years = sorted(present_years, reverse=True)
         ordered_years_str = [str(y) for y in ordered_years]
@@ -379,7 +379,7 @@ def update_dashboard(depts, genders, year_range, termination_filter):
             title="Average Engagement Survey Score (1-5)",
             template="plotly_dark",
             color="Status",
-            color_discrete_map={"Active": "lightblue", "Terminated": "lightorange"} 
+            color_discrete_map={"Active": "lightblue", "Terminated": "orange"} 
         )
         # Ensure y-axis range is appropriate for survey scores
         fig_engagement.update_yaxes(range=[0, 5], title="Average Score")
@@ -404,6 +404,7 @@ def update_dashboard(depts, genders, year_range, termination_filter):
     
     return str(count_total), str(count_active), str(
         count_term), f"{rate}%", fig_year, fig_gender, fig_dept, fig_reason, table_salary, table_recent, fig_engagement
+    
 
 if __name__ == "__main__":
     app.run(debug=True)
