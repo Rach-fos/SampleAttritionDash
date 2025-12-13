@@ -173,12 +173,12 @@ app.layout = dbc.Container([
 
     # third Row charts
     dbc.Row([
-        dbc.Col([
-            dbc.Card(dbc.CardBody([
-                html.H5("Salary Comparison"),
-                html.Div(id="table-salary")
-            ]))
-        ], width=4,length=3),
+        # dbc.Col([
+        #     dbc.Card(dbc.CardBody([
+        #         html.H5("Salary Comparison"),
+        #         html.Div(id="table-salary")
+        #     ]))
+        # ], width=4),
         
         #Engagement Survey scores
         dbc.Col([
@@ -186,7 +186,13 @@ app.layout = dbc.Container([
                 html.H5("Avg Engagement Survey Scores"),
                 dcc.Graph(id="engagement-score")
             ]))
-        ], width=7, length=3),
+        ], width=7),
+        dbc.Col([
+            dbc.Card(dbc.CardBody([
+                html.H5("Salary Comparison"),
+                html.Div(id="table-salary")
+            ]))
+        ], width=4),
     ], className="mb-4"),
     
     #4th row
